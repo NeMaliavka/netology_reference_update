@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from backend.views import ExportProductsView
+#from backend.views import ExportProductsView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('backend.urls', namespace='backend')),
-    path('products/export', ExportProductsView.as_view(), name='export-products'),
+    #path('products/export', ExportProductsView.as_view(), name='export-products'),
 ]
