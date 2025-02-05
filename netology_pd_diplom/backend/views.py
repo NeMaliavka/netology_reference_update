@@ -228,7 +228,7 @@ class ContactView(APIView):
 
 class PartnerUpdate(APIView):
     """
-    Класс для обновления информации о партнере.
+    Класс для обновления информации о партнере, включая импорт данных о продуктах.
     """
     def post(self, request, *args, **kwargs):
         """
@@ -286,7 +286,7 @@ class PartnerUpdate(APIView):
 
 class PartnerState(APIView):
     """
-    Класс для управления состоянием партнера.
+    Класс для управления состоянием партнера, позволяющий получать и изменять состояние.
     """
     def get(self, request, *args, **kwargs):
         """
@@ -337,7 +337,7 @@ class PartnerState(APIView):
 
 class RegisterAccount(APIView):
     """
-    Класс для регистрации покупателей
+    Класс для регистрации пользователей. Обрабатывает данные и создает нового пользователя, проверяя уникальность и сложность пароля.
     """
     def post(self, request, *args, **kwargs):
         """
@@ -374,7 +374,7 @@ class RegisterAccount(APIView):
 
 class ConfirmAccount(APIView):
     """
-    Класс для подтверждения почтового адреса
+    Класс для подтверждения почтового адреса пользователя. Проверяет токен и активирует пользователя.
     """
     def post(self, request, *args, **kwargs):
         """
@@ -403,7 +403,7 @@ class ConfirmAccount(APIView):
 
 class AccountDetails(APIView):
     """
-    Класс для управления деталями аккаунта пользователя.
+    Класс для получения и обновления данных аутентифицированного пользователя.
     """
     def get(self, request: Request, *args, **kwargs):
         """
@@ -453,7 +453,7 @@ class AccountDetails(APIView):
 
 class LoginAccount(APIView):
     """
-    Класс для авторизации пользователей
+    Класс для авторизации пользователей. Проверяет учетные данные и выдает токен.
     """
     def post(self, request, *args, **kwargs):
         """
@@ -479,7 +479,7 @@ class LoginAccount(APIView):
 
 class CategoryView(ListAPIView):
     """
-    Класс для просмотра категорий
+    Класс для получения списка категорий.
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -487,7 +487,7 @@ class CategoryView(ListAPIView):
 
 class ShopView(ListAPIView):
     """
-    Класс для просмотра списка магазинов
+    Класс для получения списка магазинов.
     """
     queryset = Shop.objects.filter(state=True)
     serializer_class = ShopSerializer
@@ -495,7 +495,7 @@ class ShopView(ListAPIView):
 
 class ProductInfoView(APIView):
     """
-    Класс для поиска продуктов.
+    Класс для получения информации о продуктах с фильтрацией по магазину и категории.
     """
     def get(self, request: Request, *args, **kwargs):
         """
@@ -527,7 +527,8 @@ class ProductInfoView(APIView):
 
 class BasketView(APIView):
     """
-    Класс для управления корзиной пользователя.
+    Класс для управления корзиной пользователя. 
+    Включает методы для получения, добавления, удаления и обновления товаров в корзине.
     """
     def get(self, request, *args, **kwargs):
         """
