@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     build: .
@@ -8,24 +6,16 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=True
-      - EMAIL_HOST=smtp.mail.ru
-      - EMAIL_HOST_USER=netology.diplom@mail.ru
-      - EMAIL_HOST_PASSWORD=CLdm7yW4U9nivz9mbexu
-      - EMAIL_PORT=465
-      - EMAIL_USE_SSL=True
-      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  celery:
+    build: .
+    command: celery -A netology_pd_diplom.celery worker --loglevel=info
+    volumes:
+      - .:/app
     depends_on:
       - redis
 
   redis:
-    image: redis:alpine
-
-  celery:
-    build: .
-    command: celery -A netology_pd_diplom worker --loglevel=info
-    volumes:
-      - .:/app
-    depends_on:
-      - web
+    image: "redis:alpine"
